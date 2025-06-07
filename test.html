@@ -1,0 +1,265 @@
+<div id="galery"></div>
+<div id="main">
+  <div id="ucapan">
+    <p>Selamat Ulang Tahun Ke-19</p>
+    <p>Anisa Robiatul Laila</p>
+  </div>
+  <button id="lihatPesan" onclick="animPesan()">Lihat Pesan</button>
+</div>
+<div id="con_pesan">
+  <p id="teks">
+    Untuk tahun iki ulang tahunmu sedikit spesial yo cedek" karo lebaran
+  </p>
+  <div id="con_tom">
+    <button id="previous" class="tombol" onclick="ganti(0)">Previous</button>
+    <button id="next" class="tombol" onclick="ganti(1)">Next</button>
+  </div>
+</div>
+
+<style>
+  * {
+    font-size: 4vw;
+    font-weight: bold;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  img {
+    width: 100vw;
+    height: 100vh;
+  }
+  button {
+    width: 40vw;
+    height: 7vh;
+    border-radius: 30em;
+    margin-top: 5px;
+    font-family: inherit;
+    font-size: 4vw;
+    border: 1px s;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 3px 3px 12px #c5c5c5, -3px -3px 12px #fff;
+  }
+  #galery {
+    z-index: 0;
+    position: fixed;
+  }
+  #main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  #ucapan {
+    z-index: 2;
+    color: #fff;
+    font-size: 4.5vw;
+    margin-top: 40vh;
+    text-align: center;
+    text-transform: capitalize;
+    position: relative;
+  }
+  #ucapan p {
+    margin: 0 0 6px 0;
+  }
+  #lihatPesan {
+    z-index: 2;
+    transition: display 1s ease;
+  }
+  #con_pesan {
+    z-index: 1;
+    transition: 1s ease;
+    background: #eee;
+    border-radius: 2vw;
+    border: 2px solid #bbb;
+    padding: 3vw;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  #teks {
+    width: 100%;
+    height: 90%;
+    margin: 0 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-align: center;
+  }
+  #con_tom {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+  .tombol {
+    width: 40%;
+  }
+</style>
+
+<script>
+  var teks = [
+    'Untuk tahun iki ulang tahunmu sedikit spesial yo cedek" karo lebaran',
+    "lek ngono gae ngawali tak mulai karo ngomong Minal Aidin Wal Fa Idzin mohon maaf lahir dan batin buk",
+    'sepurane loh ya jaket e kurang cocok sakjane aku awal rencana iku ate tuku sepatu tapi karena aku tambah gak ero dan gak isok ngiro" ukuran sikilmu maleh dadi iku',
+    "lek perkoro ndelok deskripsi uwes bahkan aku sampek takok nak penjual e njalok saran lek tinggi semene iku ukuran opo, tapi yo jek gak tepak ae",
+    "untuk doa sebaiknya tak serahno nak awakmu ae deh, tahun wingi doa ku gae awakmu akeh gak tepak e, jek tas setengah tahun wes gagal ae, lek gelem omongno nak aku doa ne opo ben sekalian melok tak amini",
+    "saiki aku pingin semacam membalas suratmu wingi deh",
+    "pertama awakmu ngomong aku kek gak tau sambat, sakjane ngono ya aku iku pingin cerito nak awakmu mek e kek serasa gak cocok ngono",
+    'setiap kali aku ate cerito iku mesti muncul pikiran "temen tah aku ate sambat nak iki arek, emang uripku senemen iku kah sampek aku oleh sambat, lek dibandingno arek e loh kek e jek nemen arek e deh"',
+    'bahkan wingi aku lak sempet takok lek aku cerito hal sing gede, awakmu isok njaga rahasia gak, sakjane pas iku aku wes ate tak coba ae lah cerito pisan" tapi setelah tak rasakno neh, masalahku kok yo gak nemen" juga ngono',
+    "cerito sitik ae deh, meskipun aku rasa awakmu gak iling juga seh sing tak omong iki, lek awakmu iling wingi pas aku ultah bengine kan aku nggae status",
+    "nah iku status isine adalah harapanku asline gae hubunganku karo bapakku, harapanku iki gede, aku pengen banget iku isok kedaden, tapi dengan pengalamanku dadi anak e dan urip bareng karo de e, sing tak rasakno iku wes kek mustahil harapanku isok kedaden",
+    "dadi nak status iku adalah harapanku terbesar dihari iku sing aku ero gak akan mungkin isok kejadian meskipun wong e jek onok, rasane ngono kek wedi ngono loh, wedi lek aku tiwas nggae hubungan neh dengan harapanku sing gede iku tapi sing onok malah kek bien neh",
+    "dadi yo ngono iku lah kurang lebih opo o aku jarang banget cerito bahkan sampek awakmu keroso aku gak tau sambat",
+    "next awakmu ngomong tentang aku sing berhasil survive dan sesekali istirahat",
+    'terima kasih tapi aku rasa malah aku iki keakeh an istirahat, jadi malah kudu lebih akeh melakukan sesuatu, temen loh asline aku iki malesan banget lek awakmu ero, bahkan mungkin awakmu wes ero deh setidak e keroso sitik" ngono',
+    "tapi tetep terima kasih setidak e onok sing mengapresiasi aku berhasil survive dan mungkin iku isok tak terima sebagai semangat juga ngono",
+    "selanjut e awakmu ngomong terima kasih soale aku wes nggae awakmu merasakan pertemanan dari lawan jenis lagi, awakmu seneng soale kenal aku awakmu maleh sinau banyak hal tapi yo onok sifatku sing nggae awakmu gak seneng juga",
+    'ehm untuk iki... karena aku hanya menjawab ya jadi ya oke sama" juga opo neh tentang sing lawan jenis iku, awakmu sing pertama loh arek wedok sing tau tak jak dolen" ngono bahkan gak mek sekali tapi sampek beberapa kali',
+    "lek untuk sifatku sing nggae awakmu gak seneng aku ngomong sepurane sek untuk iku tapi temen aku gak ero iku sing endi, aku ero takok pasti gak bakal mok jawab tapi lek aku ngolek iku yo kek keangelan dewe aku jadi lek awakmu gelem ngomongi sing endi aku bakal ngomong suwon banget deh",
+    "saiki tak cobak nulis pesanku dewe gae awakmu buk",
+    'wehhh wes ultah neh ae awakmu, rasane jek tas deh ultahmu wingi, terus awak dewe foto pas wisuda, moro" saiki wes ultah ke 19 ae guru paud siji iki',
+    'ehm pertama tak ngomong semangat ae gae ngadepi semua masalah sing jek mok hadepi, aku gak ero iku masalah opo ae tapi kek e tentang masalah karo dulur"mu deh atau lek gak karo tonggo',
+    "terus semangat neh gae ngajar e buk, diluk neh wes ate setaun isok oleh bukti lek uwes tau ngajar iku",
+    "meskipun iku tujuan e gae kuliah tapi aku yakin gae kerjo isok juga, setidak e iku isok gae memperkuat ngomong lek awakmu iku penyabar, gak gampang ngamuk dll, kan ngurusi arek cilik iku butuh sabar sing akeh",
+    'tentang masalah" iku jareku yah terus lakoni ae sesuai pengalamanku ngono iku bakal selesai secara alon", tapi yo emang kudu sabar soale onok sing seulan uwes tapi yo onok sing bahkan sampek 10 taun gak uwes"',
+    'lek misal gak kuat ojok sampek atek onok pikiran mandek urip loh ya, wes nangis ae atau metu ae wes diluk nak taman endi ngono tah nak perpus, kek e awakmu kan seneng iku moco novel" ngono',
+    "nangis iku gak selalu karena lemah lo ya, aku tau moco lek jare nangis iku isok mengurangi rasa sedih dadi isok ae nangis iku emang bertujuan untuk mengurangi rasa sedih sedikit ae soale wes terlalu banyak",
+    'terus kenal karo awakmu iku sa, nggarai aku ero akeh koyok lek mlaku nak taman" atau tempat" liane iku yo opo, kiro" opo ae sing ate diomong lek metu ngono iku, sing pasti pengalaman soale sak gorong e karo awakmu aku ae gak tau nak balai kota atau tempat lain" e bahkan dolen ae hampir gak tau aku',
+    'bagiku kenal karo awakmu iku akeh nyenengno e, suwon yah gelem ngancani aku setaun iki keliling" dolen"',
+    "ayok terus berjuang gae hidup, awakmu jek gorong nemu alasan awakmu milih urip nak ndunyo iki, bien wes didelokno urip e awakmu karo malaikat bolak balik, dan awakmu jek milih dadi menungso, ayo bertahan, dengan angel e sing saiki wes mok hadepi engkok pasti bakal dibales dengan sesuatu sing nyenengno",
+    'omong" gak keroso yah ket awak dewe mulai cedek wes onok setahun lebih 3 bulanan',
+    "aku awal e gak nyongko loh awak dewe bakal sesuwe iki opo neh iku lebih akeh setelah awak dewe lulus, tak kiro awal e mungkin setelah lulus mentok sekitar 1 atau 2 bulan bakal wes mandek gak cedek neh tapi lah kok ternyata sampek setahun",
+    "bahkan karo haqqi ae aku wes gak secedek bien neh, rasane ngono saiki wes wa mek lek pas lagi onok butuh e tok ae",
+    "dan kek e awak dewe saiki wes mulai ngono juga yah, ket omonganku wingi iku, hah... bahkan sampek saiki aku jek gak paham iku opo o",
+    'rasaku aku takok "oleh takok enggak atau gak oleh iki" dan awakmu njawab "kudune awakmu wes paham", sepahamku seh yo oleh takok mek e gak oleh akeh" dan gak oleh terlalu rinci ngono',
+    'tapi yoes lah gak opo, awal tak kiro awak dewe wes cukup cedek untuk aku ben gak perlu kudu memperhatikan ngono iku, tapi ternyata secedek apapun hal" ngono yo emang kudu diperhatikno',
+    "ya setidak e lek awakmu gak ngomong opo sifatku sing gak mok senengi aku ero iku mau siji ngono lah",
+    "untuk selanjut e lek awakmu jek pingin cedek kek bien yo gak opo, dan lek awakmu pingin wes kontak an ae gak usah secedek wingi yo gak opo, koyok biasane aku manut ae wes",
+    "yo sekali neh untuk penutupan dan akhir, selamat ulang tahun yang ke-19, terima kasih dan mohon maaf gae kabeh ya anisa :)",
+    "sakjane aku bingung enak e iki tak tulis ta gak yah, opo neh dengan mulai gak cedek e awak dewe, tapi tak tulis ae deh eman lek gak tak omongno, jadi tekan kene silahkan lanjut lek ate mok woco dan lek gak gelem pun yo gak opo",
+    "entah yo tepat e pas tanggal atau hari opo, mungkin awakmu wes keroso iki tapi ket bien smk aku ajane wes onok rasa seneng nak awakmu",
+    "mungkin rasane iku muncul sejak awak dewe foto berdua pertama kali, atau mungkin bahkan sebelum iku, mungkin setelah beberapa kali aku mulai nebengi awakmu budal? hmm aku dewe yo gak yakin tapi sing pasti ket smk",
+    "dan kek e sampek saiki jek iyo deh, aku kek gak yakin ngono yah, soale emang sing tak rasakno iku gak jelas, mungkin karena aku wes kesuwen seneng karo awakmu dadi wes kebiasaan ngono dadi kek wes gak onok sing spesial soale wes ben dino ngono",
+    'tapi aku isok ngomong saiki jek iyo gara" hampir setiap saat, onok opo" ngono sign tak iling mesti awakmu dadi aku gak ero kudu tak sebut opo ngono iku kecuali aku jek seneng awakmu',
+    "terus jaket e iku gak onok hubungan e karo perasaanku loh ya, iku wes full emang hadiah ae gae awakmu ultah guduk aku ngekeki iku ben awakmu nerimo ngono, dadi santai ae ",
+    'lagian aku yo ero awakmu gak gelem pacaran" ngono, aku juga gak isok ngono, aku dewe jek kudu fokus kuliah, kerjo ae yo gorong dadi gae mengarah merono kek gak mungkin saiki deh',
+    "yo wes ngono ae lah gae pesan iki, aku mek ngomong sing akhir iki karena keroso eman ae lek gak diomong dan mek pingin awakmu ero ae",
+    'wes suwon awakmu wes gelem moco sampek kene, bye"',
+  ];
+  var img_link = [
+    "1qPRIGOWyNfnLJWRigqyZFt-ugMky2W8t",
+    "1AY0wnB1Eh4Arhjnca82XuMKUJWy1xwx4",
+    "1ljHAUzlqFy9EAAsQO_4RFcRPkwUz-zJt",
+    "125Umbn-Zb72bab5FDIXlPRdH2EAfrmG9",
+    "1mhMsaL8ZRRLcszLEILSu-j0_wSp2woH5",
+    "178JgJIwnKPjaSl0ehZ6YkP9Xyq2Qa703",
+    "1UvsRMI02-w17ZPj6vPZIZDNpCkJOUUMH",
+    "1QUdGIjJ4VOHD7msYzzc9FdXsq6eLKb2g",
+    "11toTkXOcX4TnHPnK17-FaoWsZHSDT1zH",
+    "1qthIX2eCq0cB-EV7sGIgSYOjiPtWhDpT",
+    "15erGSf_iH1HyCpoyj2fcNtqUcbrbbTUB",
+    "1bY4IB5rpRN8FE6LJghqS1wwJc64DHI6P",
+    "1VZZrSeEI3Hl5rSRRxZ1CBXUs6iO6ZvZ-",
+    "1JRlHO3Xr7Ru8NVBB5wimTLXZIqZ0cB3_",
+    "1-HhvZh_wlDJrZjw4i_3hdpsLez18l7bZ",
+    "1A0p1ZEvTpwmQKwOqrAd_7FQKM-1oOI9q",
+    "1RdfgZkKkkXypnigAsLf5etPHc3MX7fjM",
+    "1MLjBRq1SQ3_fmvELAX9Su9nfpPw31pLa",
+    "13nC2VcbwfQgYsuY9lHvm55R0GhhGtraL",
+    "1jxloTTLwNxtYOd61xNJOCfmyjOuq3k-h",
+    "1BDBI4wZ79r2GWxt6NZyAwRtjytinsnPP",
+    "1qKDZxinlbXEX1xn2ROOJA1TIVPeFWr6j",
+    "1E-fxpNVRSZ8f-o-JOo0NzVv5Pkybr-Fx",
+    "1g6eAViQlt9ogHpKPKQkhswUgAmvqjHbm",
+    "1t1JowHmIUPEVIiQRqy9090nu7GigSTI5",
+    "1dx8fx4qd3NslVBrnleYj5-mhQqxU6d6E",
+    "1ElekS47DOAlt4CTlBAepxl_R8-07r-7A",
+    "1UnnnaDqoxMCeM6iZkNqvRrgMwuvbzo23",
+    "1rVTLIeKhIVt4aNgMpCoUurb3tWE4uP7_",
+    "1XigM-DYF7_TUajBjrCuueXICSrDqaHx0",
+    "1Z8rN2PMoRAJv4-L1FLrFLrgKzACW0lZU",
+    "1UbjTOqT8JUMXyAu3jMFtYk24FRDxgz8-",
+    "1cZCmEx-49tgQRpRh6AasRFQCmLtiuusa",
+    "1x0AZbJQ947Xqa2rqNqFUqNgnnTw4xs5a",
+    "1hpQQWGXdHgUK6iZQ8VAJDZ1rppqDg6hQ",
+    "172Lmby7NKkDHfOLn3CR7DX49hBw5BYss",
+  ];
+  var a = 0;
+  var c = 0;
+  const view = document.getElementById("galery");
+  const img_tag = document.createElement("img");
+  var loop = 0;
+
+  img_tag.setAttribute(
+    "src",
+    "https://drive.google.com/uc?export=view&id=" + img_link[a]
+  );
+  img_tag.setAttribute("id", "foto");
+  view.appendChild(img_tag);
+
+  if (a == 0) {
+    document.getElementById("previous").style.display = "none";
+  }
+
+  function animPesan() {
+    var main = document.getElementById("main");
+    var pesan = document.getElementById("con_pesan");
+
+    //menghilangkan #main
+    main.style.opacity = "1";
+    main.style.position = "fixed";
+    setTimeout(function () {
+      main.style.transition = "opacity 2s";
+      main.style.opacity = "0";
+    });
+
+    //memunculkan #con_pesan
+    pesan.style.display = "flex";
+    pesan.style.opacity = "0";
+    pesan.style.height = "0";
+    pesan.style.width = "0";
+    setTimeout(function () {
+      pesan.style.transition = "height 2s, width 2s, opacity 2s";
+      pesan.style.opacity = "0.85";
+      pesan.style.height = "70vh";
+      pesan.style.width = "70vw";
+    }, 50);
+  }
+
+  function ganti(b) {
+    if (b == 1) {
+      a += 1;
+      c += 1;
+      if (c == 36) {
+        c = 0;
+      }
+    } else if (b == 0) {
+      a -= 1;
+      c -= 1;
+      if (c == -1) {
+        c = 35;
+      }
+    }
+
+    if (a == 0) {
+      document.getElementById("previous").style.display = "none";
+    } else if (a == teks.length - 1) {
+      document.getElementById("next").style.display = "none";
+    } else {
+      document.getElementById("previous").style.display = "block";
+      document.getElementById("next").style.display = "block";
+    }
+    document.getElementById("teks").innerHTML = teks[a];
+    document.getElementById("foto").src =
+      "https://drive.google.com/uc?export=view&id=" + img_link[c];
+  }
+</script>
